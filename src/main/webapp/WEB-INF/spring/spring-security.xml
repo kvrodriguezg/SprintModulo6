@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<bean:beans 
+xmlns:bean="http://www.springframework.org/schema/beans"
+xmlns:xsi-="http://www.w3.org/2001/XMLSchema-instance"
+xmlns="http://www.springframework.org/schema/security"
+xsi-:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<http auto-config="true">
+		
+		<!--  Acceso todos los usuarios. -->
+		<intercept-url pattern="/" access="permitAll" />
+		<intercept-url pattern="/inicio" access="permitAll" />
+		
+		<!--  Acceso solo cliente. -->
+		<intercept-url pattern="/listar_capacitaciones"
+			access="hasAnyAuthority('Cliente')" />
+		<intercept-url pattern="/crear_capacitacion"
+			access="hasAnyAuthority('Cliente')" />	
+		<intercept-url pattern="/capCreada"
+			access="hasAnyAuthority('Cliente')" />					
+		<intercept-url pattern="/contacto"
+			access="hasAnyAuthority('Cliente')" />
+		<intercept-url pattern="/contacto_enviado"
+			access="hasAnyAuthority('Cliente')" />	
+			
+					
+		<!--  Acceso solo administrativo. -->			
+		<intercept-url pattern="/crear_usuario"
+			access="hasAnyAuthority('Administrativo')" />
+		<intercept-url pattern="/listar_usuarios"
+			access="hasAnyAuthority('Administrativo')" />	
+		<intercept-url pattern="/editar_cliente"
+			access="hasAnyAuthority('Administrativo')" />
+		<intercept-url pattern="/editar_prof"
+			access="hasAnyAuthority('Administrativo')" />	
+		<intercept-url pattern="/editar_admin"
+			access="hasAnyAuthority('Administrativo')" />	
+		<intercept-url pattern="/cliente_editado"
+			access="hasAnyAuthority('Administrativo')" />
+		<intercept-url pattern="/admin_editado"
+			access="hasAnyAuthority('Administrativo')" />	
+		<intercept-url pattern="/prof_editado"
+			access="hasAnyAuthority('Administrativo')" />	
+		<intercept-url pattern="/listar_pagos"
+			access="hasAnyAuthority('Administrativo')" />
+		<intercept-url pattern="/crear_pago"
+			access="hasAnyAuthority('Administrativo')" />	
+				
+		<!--  Acceso solo profesional. -->	
+		<intercept-url pattern="/listar_chequeos"
+			access="hasAnyAuthority('Profesional')" />		
+		<intercept-url pattern="/listar_visitas"
+			access="hasAnyAuthority('Profesional')" />
+		<intercept-url pattern="/crear_visita"
+			access="hasAnyAuthority('Profesional')" />				
+																				
+		<!-- Configuración del login. -->
+		<form-login login-page="/login"
+				authentication-failure-url="/error" 
+				username-parameter="usuario"
+				password-parameter="contrasena"/>
+		<csrf disabled="true"/>		
+		<logout logout-success-url="/login" />		
+	</http>
+	
+	
+	<!-- Usuarios. -->
+	<authentication-manager>
+		<authentication-provider>
+			<password-encoder hash="bcrypt" />			
+			<user-service>
+				<user name="Admin" authorities="Administrativo"
+					password="$2a$10$pfYnwprItNATg2cXlGcl9OR4QumCmxuCAjDldw7o5Mpdck.hFumIW" />
+				<user name="EmpresaSA" authorities="Cliente"
+					password="$2a$10$EpOmb338NGD8E.lGSn..SONTlOQQE4/RRyC37jAPJ67BPxTxAiosy" />		
+				<user name="Prof" authorities="Profesional"
+					password="$2a$10$EpOmb338NGD8E.lGSn..SONTlOQQE4/RRyC37jAPJ67BPxTxAiosy" />		
+			</user-service> 			
+		</authentication-provider>
+	</authentication-manager>
+
+</bean:beans>
