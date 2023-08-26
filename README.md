@@ -21,3 +21,13 @@ DAO. Contienes las interfaces e implementaciones DAO para cada función requerid
 Servicios. Contiene las clases principales del proyecto, más su interfaz.
 
 Vistas. Contiene archivos jsp relaciones a las vistas del proyecto.
+
+Usuarios:
+Usuario Administrativo: admin
+Clave: 1234
+
+Usuario Profesional: prof
+Clave: 1234
+
+Usuario Cliente: EmpresaSA
+Clave: 1234
